@@ -9,17 +9,27 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 # --- CONFIGURATION ---
 BLOCK_SIZE_KM = 70.0 
 
-DOM_ZONES = {
-    "Martinique": (14.6415, -61.0242),
-    "Guadeloupe": (16.2650, -61.5510),
-    "La Réunion": (-21.1151, 55.5364),
-    "Mayotte": (-12.8275, 45.1662),
-    "Guyane": (4.9372, -52.3260),
-    "Saint-Barthélemy": (17.9000, -62.8333),
-    "Saint-Martin": (18.0708, -63.0501)
+PRESET_ZONES = {
+    # Europe
+    "Paris, France": (48.8566, 2.3522),
+    "Lyon, France": (45.7640, 4.8357),
+    "Marseille, France": (43.2965, 5.3698),
+    "London, UK": (51.5074, -0.1278),
+    "Berlin, Germany": (52.5200, 13.4050),
+    "Madrid, Spain": (40.4168, -3.7038),
+    "Rome, Italy": (41.9028, 12.4964),
+    # North America
+    "New York, USA": (40.7128, -74.0060),
+    "Los Angeles, USA": (34.0522, -118.2437),
+    "Chicago, USA": (41.8781, -87.6298),
+    "Toronto, Canada": (43.6532, -79.3832),
+    # Other
+    "Tokyo, Japan": (35.6762, 139.6503),
+    "Sydney, Australia": (-33.8688, 151.2093),
+    "Dubai, UAE": (25.2048, 55.2708),
 }
 
-st.set_page_config(layout="wide", page_title="DOM Scraper Live")
+st.set_page_config(layout="wide", page_title="Google Place Extractor")
 
 # --- SESSION STATE ---
 if 'queue' not in st.session_state: st.session_state['queue'] = [] 
@@ -29,9 +39,9 @@ if 'total_calls' not in st.session_state: st.session_state['total_calls'] = 0
 if 'sector_counter' not in st.session_state: st.session_state['sector_counter'] = 0
 
 if 'selected_center' not in st.session_state:
-    st.session_state['selected_center'] = list(DOM_ZONES["Martinique"])
+    st.session_state['selected_center'] = list(PRESET_ZONES["Paris, France"])
 if 'last_zone_selection' not in st.session_state:
-    st.session_state['last_zone_selection'] = "Martinique"
+    st.session_state['last_zone_selection'] = "Paris, France"
 
 # --- GEOMETRY HELPERS ---
 def get_grid_boxes(center_lat, center_lng, n_blocks):
@@ -137,9 +147,9 @@ with st.sidebar:
     st.divider()
     st.subheader("📍 Zone Géographique")
     
-    selected_zone_name = st.selectbox("Région DOM", ["Custom"] + list(DOM_ZONES.keys()), index=1)
+    selected_zone_name = st.selectbox("📍 Preset Location", ["Custom"] + list(PRESET_ZONES.keys()), index=1)
     if selected_zone_name != "Custom" and selected_zone_name != st.session_state['last_zone_selection']:
-        st.session_state['selected_center'] = list(DOM_ZONES[selected_zone_name])
+        st.session_state['selected_center'] = list(PRESET_ZONES[selected_zone_name])
         st.session_state['last_zone_selection'] = selected_zone_name
         st.rerun()
 
