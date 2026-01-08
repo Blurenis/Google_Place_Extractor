@@ -2,7 +2,7 @@
 
 A powerful **Google Places scraper** with a real-time interactive map interface. Extract business data from **anywhere in the world** using an adaptive grid system that automatically handles dense areas.
 
-![Screenshot](screenshot.png)
+![Screenshot](screenshot.png?v=2)
 
 ## ✨ Features
 
@@ -102,3 +102,4 @@ MIT License – Free to use and modify.
 ---
 
 Made with ❤️ using [Streamlit](https://streamlit.io/) & [Folium](https://python-visualization.github.io/folium/)
+
