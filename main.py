@@ -142,7 +142,7 @@ def run_batch(api_key, keyword, min_radius, max_rps):
 with st.sidebar:
     st.title("⚙️ Paramètres")
     api_key = st.text_input("Clé API Google", type="password", value=utils.load_key())
-    keyword = st.text_input("Mot-clé", value="infirmier libéral")
+    keyword = st.text_input("Mot-clé", value="Restaurants")
     
     st.divider()
     st.subheader("📍 Zone Géographique")
@@ -166,7 +166,7 @@ with st.sidebar:
     st.subheader("🚀 Vitesse & Grille")
     min_radius = st.number_input("Rayon Min (m)", value=100)
     limit_rps = st.slider("Requêtes / Seconde", 1, 10, 2)
-    grid_n = st.number_input("Taille Grille (N x 70km)", 1, 10, 3)
+    grid_n = st.number_input("Taille Grille (N x 70km)", 1,50, 1)
     
     csv_name = st.text_input("Nom fichier CSV", value="resultats.csv")
     if not csv_name.endswith(".csv"): csv_name += ".csv"
